@@ -1,0 +1,336 @@
+<basis core="call" file="Client_CheckRkey.inc"></basis> <!-- updated login -->
+
+<basis core="group" name="Delay_1">
+
+    <basis core="external.fly.ws" source="cmsDbService[##cms.form.sid|(5)##]" procedurename="dbsource" name="db">
+        <member name="showdetail" method="hotel" query='{
+            "name": "db",
+            "mid": "20",
+            "schemabase": "[##cms.query.schemabase|(true)##]",
+            "schema": {
+                "mainInfo": {
+                    "action": "create",
+                    "childs": [
+                       {
+                        "extra_service": {
+                          "action": "find",
+                          "map": "extra_service"
+                          },
+                          "transfer_to": {
+                            "action": "find",
+                            "map": "extra_service.transfer_to"
+                            },
+                            "transfer_from": {
+                                "action": "find",
+                                "map": "extra_service.transfer_from"
+                            }
+                        },
+                         {
+                            "transfer_type": {
+                                "action": "find",
+                                "map": "transfer_type"
+                            }
+                        }, 
+                        {
+                            "hotelImage": {
+                                "action": "create",
+                                "childs": [
+                                    {
+                                        "rooms": {
+                                            "action": "find",
+                                            "map": "rooms",
+                                            "options": {
+                                                "image": {
+                                                    "action": "find",
+                                                    "map": "hotelinfo.hotelsearch.hotelimage"
+                                                },
+                                                "name": {
+                                                    "action": "find",
+                                                    "map": "hotelinfo.hotelsearch.realname"
+                                                }
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "hotelInfo": {
+                                "action": "create",
+                                "childs": [
+                                    {
+                                        "rooms": {
+                                            "action": "find",
+                                            "map": "rooms",
+                                            "options": {
+                                                "realname": {
+                                                    "action": "find",
+                                                    "map": "hotelinfo.hotelsearch.realname"
+                                                },
+                                                "star": {
+                                                    "action": "find",
+                                                    "map": "hotelinfo.hotelsearch.star"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "cityname": {
+                                            "action": "find",
+                                            "map": "hotelgroup.contry.cityname"
+                                        }
+                                    },
+                                    {
+                                        "countryname": {
+                                            "action": "find",
+                                            "map": "hotelgroup.contry.countryname"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "detailsInfo": {
+                    "action": "create",
+                    "childs": [
+                        {
+                            "rooms": {
+                                "action": "find",
+                                "map": "rooms",
+                                "options": {
+                                    "title": {
+                                        "action": "create",
+                                        "childs": [
+                                        {
+                                            "index": {
+                                                "action": "find",
+                                                "map": "costinfo.index"
+                                            },
+                                        },{
+                                            "roomname": {
+                                                "action": "find",
+                                                "map": "roomdata.roomname"
+                                            },
+                                        }
+                                        ]
+                                    },
+                                 
+                                 
+                                    "services": {
+                                        "action": "find",
+                                        "map": "hotelinfo.hotelsearch.services"
+                                    },
+                                    "passengers": {
+                                        "action": "create",
+                                        "childs": [
+                                            {
+                                                "adults": {
+                                                    "action": "find",
+                                                    "map": "costinfo.adults"
+                                                },
+                                                "childswithbed": {
+                                                    "action": "find",
+                                                    "map": "costinfo.childswithbed"
+                                                },
+                                                "childswithoutbed": {
+                                                    "action": "find",
+                                                    "map": "costinfo.childswithoutbed"
+                                                },
+                                                "infant": {
+                                                    "action": "find",
+                                                    "map": "costinfo.infant"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "dateinfo": {
+                                        "action": "create",
+                                        "childs": [
+                                            {
+                                                "start": {
+                                                    "action": "create",
+                                                    "childs": [
+                                                        {
+                                                            "sstring": {
+                                                                "action": "find",
+                                                                "map": "costinfo.dateinfo.start.sstring"
+                                                            },
+                                                            "mstring": {
+                                                                "action": "find",
+                                                                "map": "costinfo.dateinfo.start.mstring"
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                "end": {
+                                                    "action": "create",
+                                                    "childs": [
+                                                        {
+                                                            "sstring": {
+                                                                "action": "find",
+                                                                "map": "costinfo.dateinfo.end.sstring"
+                                                            },
+                                                            "mstring": {
+                                                                "action": "find",
+                                                                "map": "costinfo.dateinfo.end.mstring"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "totalInfo": {
+                    "action": "create",
+                    "childs": [
+                        {
+                            "total": {
+                                "action": "find",
+                                "map": "total"
+                            }
+                        },
+                        {
+                            "commission": {
+                                "action": "find",
+                                "map": "costcommission"
+                            }
+                        },
+                        {
+                            "totalcom": {
+                                "action": "find",
+                                "map": "totalcom"
+                            }
+                        },
+                        {
+                            "firstpay": {
+                                "action": "find",
+                                "map": "firstpay"
+                            }
+                        },
+                        {
+                            "moneytype": {
+                                "action": "find",
+                                "map": "moneytype"
+                            }
+                        }
+                    ]
+                },
+                "Credit_payment": {
+                    "action": "find",
+                    "map": "Credit_payment"
+                },
+                "serviceid": {
+                    "action": "find",
+                    "map": "hotelgroup.serviceid"
+                },
+                "hotel_dmnid": {
+                    "action": "find",
+                    "map": "hotelgroup.hotel_dmnid"
+                },
+                "coupon_data": {
+                    "action": "find",
+                    "map": "coupon_data"
+                },
+                "internal": {
+                    "action": "find",
+                    "map": "internal"
+                },
+                "unit": {
+                    "action": "find",
+                    "map": "unit"
+                }
+            },
+        "member": [
+        {
+          "type": "list",
+          "name": "q",
+          "request": "showdetail",
+          "schemaid": "251",
+          "provider_basis": "[##cms.form.provider##]",
+          "provider_ws":[##cms.form.mainprovider|("")##],
+          "id": "[##cms.form.productid##]",
+          "nights": "[##cms.form.nightLink##]",
+          "rooms":[##cms.json.header|cms.form.rooms##],
+          "optionId": "[##cms.form.optionId##]",
+           "supplier": "[##cms.form.supplier##]",
+          "userid": "[##db.checkrkey.userid|(0)##]",
+          "fromdate": "[##cms.form.fdate##]",
+          "todate": "[##cms.form.tdate##]",
+          "dmnid": "[##cms.cms.domainid##]",
+          "trackingNo": "[##cms.cookie.trackingid##]",
+          "unit": "10",
+          "lid": "2"
+        }
+      ]
+    }
+     ' />
+    </basis>
+
+    <basis core="external.fly.ws" source="cmsDbService5" procedurename="dbsource" name="db">
+        <member name="transferForm" method="hotel" query='{
+            "name": "db",
+            "mid": "20",
+            "member": [{
+            "type": "list",
+            "name": "q",
+            "lid":"1",
+            "request": "transfer_form",
+            "schemaid": "251",
+            "dmnid": "[##cms.cms.domainid##]",
+            "ws": "70",
+            "rooms":[##cms.json.header|cms.form.rooms##],
+            "trackingNo": "[##cms.cookie.trackingid##]",
+            "hotelid": "[##cms.form.hotelid##]",
+    }]}'  />
+    </basis>
+
+
+
+
+    <basis core="inlinesource" name="db">
+        <member name="transformformTree" format="json"
+        postsql="
+    
+        
+        SELECT 
+    Id,
+    ParentId,
+    CASE 
+        WHEN TRIM(Field) IS NULL THEN 
+            (SELECT Field 
+             FROM [db.transformformTree] 
+             WHERE ParentId = a.ParentId AND Field IS NOT NULL 
+             LIMIT 1)
+        ELSE 
+            Field
+    END AS Field,
+    Value,
+    Type,
+    Path
+    FROM [db.transformformTree] AS a
+    
+    "
+        
+        >{"root":[##db.transformform.result##]}</member>
+    </basis>    
+</basis>
+
+
+<basis core="group" name="Delay_2">
+</basis>
+
+
+
+
+<basis core="tree" datamembername="db.transformformTree" idcol="id" parentidcol="parentid" nullvalue="null">
+    <face filter="field in ('root') and type in ('array')">
+        <div class="transform-form-value" data-output='@value'></div>
+    </face>
+    <face filter="type in ('object','array')">@child</face>
+</basis>

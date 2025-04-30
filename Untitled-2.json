@@ -1,0 +1,87 @@
+[
+    {
+        "mainInfo": {
+            "extra_service": {
+                "id": {
+                    "provider": {
+                        "provider_id": "82",
+                        "dmnid": "4737"
+                    },
+                    "FareSourceCode": {
+                        "transfer_options": "eydvcHRpb25faWQnOiAnZXlkdmNIUnBiMjVmYVdSZmRtRnNkV1VuT2lCN0oyOXdkR2x2Ym1sa0p6b2dKemM1WkRSalpERXlMVEF6TWpZdE5ERXlPUzA0TkRGakxXWTFZV00wTkRGaU5EQXhPU2NzSUNkU2IyOXRTV1FuT2lBbklFUkNUQ3duTENBbmNtOXZiWE5mYVc1bWIzTW5PaUJiZXlkeWIyOXRYMjUxYldKbGNpYzZJQ2N4Snl3Z0ozSnZiMjBuT2lBblJFSk1MVk5VUVU1RVFWSkVJRkpQVDAwbkxDQW5jbTl2YlY5dVlXMWxKem9nSjFOVVFVNUVRVkpFSUZKUFQwMG5MQ0FuY205dmJWOTBlWEJsSnpvZ0oxTlVSQ2NzSUNkU2IyOXRWSGx3WlU1aGJXVW5PaUFuUkU5VlFreEZJRkpQVDAwbkxDQW5RbTloY21Rbk9pQW5Ra0luTENBblFtOWhjbVJPWVcxbEp6b2dKMEpGUkNCQlRrUWdRbEpGUVV0R1FWTlVKMzFkTENBbmNtOXZiVjkwZVhCbFgyNWhiV1VuT2lBbklGTlVRVTVFUVZKRUlGSlBUMDBzSnl3Z0ozQnZiR2xqZVY5cGJtWnZKem9nSnljc0lDZHlZWFJsWDNCc1lXNWZhV1FuT2lBbkp5d2dKM2R6WDJodmRHVnNhV1FuT2lBblRVdEJKMzBzSUNkb2IzUmxiRjlwWkNjNklDZE5TMEVuTENBbmNtOXZiVU55YVhSbGNtbGhKem9nVzNzbllXUjFiSFFuT2lBeUxDQW5ZMmhwYkdSQloyVnpKem9nVzEwc0lDZHliMjl0WDI1MWJXSmxjaWM2SURGOVhTd2dKMlJwWTNSZmRHbHRaU2M2SUhzblkyaGxZMnRwYmljNklDY3lNREkxTFRBMExUSTVWREF3T2pBd09qQXdKeXdnSjJOb1pXTnJiM1YwSnpvZ0p6SXdNalV0TURVdE1ERW5MQ0FuYm1sbmFIUW5PaUF5ZlN3Z0ozUnZkR0ZzWDJOdmMzUW5PaUF5TkM0d0xDQW5jMlZzWldOMFpXUmZhRzkwWld4ZmFXUW5PaUFuVFV0QkozMD0nLCAndG9rZW5fdmFsdWUnOiAnNDgxNTFjNDQtZDE4ZS00ZmU5LTlmNDktYTZmNTZjOTQyZjI0J30="
+                    }
+                }
+            },
+            "hotelImage": {
+                "rooms": [
+                    {
+                        "image": "ref516034100001682985020001",
+                        "name": "MIKA"
+                    }
+                ]
+            },
+            "hotelInfo": {
+                "rooms": [
+                    {
+                        "realname": "MIKA",
+                        "star": 3.0
+                    }
+                ],
+                "cityname": "Tbilisi",
+                "countryname": "Georgia"
+            }
+        },
+        "detailsInfo": {
+            "rooms": [
+                {
+                    "title": {
+                        "index": 1,
+                        "roomname": "STANDARD ROOM-DOUBLE ROOM"
+                    },
+                    "services": "BB",
+                    "passengers": {
+                        "adults": 2,
+                        "childswithbed": 0,
+                        "childswithoutbed": 0,
+                        "infant": 0
+                    },
+                    "dateinfo": {
+                        "start": {
+                            "sstring": "1404-02-09",
+                            "mstring": "2025-04-29"
+                        },
+                        "end": {
+                            "sstring": "1404-02-11",
+                            "mstring": "2025-05-01"
+                        }
+                    }
+                }
+            ]
+        },
+        "totalInfo": {
+            "total": 24.0,
+            "commission": 0.0,
+            "totalcom": 24.0,
+            "firstpay": 24.0,
+            "moneytype": "USD"
+        },
+        "Credit_payment": "0",
+        "coupon_data": {
+            "country": {
+                "end": {
+                    "countryname": "گرجستان",
+                    "countryid": 1002228.0
+                }
+            },
+            "city": {
+                "end": {
+                    "cityname": "تفلیس",
+                    "cityid": 1189731.0
+                }
+            },
+            "star": 3.0
+        },
+        "internal": 0,
+        "unit": "1USD"
+    }
+]

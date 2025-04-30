@@ -1,0 +1,218 @@
+<basis core="group" name="georgia-hotel-services" if="'[##cms.form.extra_service##]'='true'">
+    <div class="hotel_services_box_inner georgia-services">
+        <div class="transfer-info-container reserve_box_title inner_box">
+            <div class="reserve-tltour"><span>Transfer</span></div>
+            <ul>
+                <li class="service-info-items no-transfer-service-info-items"><input type="radio" class="radio" name="transfer" onchange="georgia_transfer_data(this,0)" value="0" checked=""><span>None</span></li>
+                <li class="service-info-items"><input type="radio" class="radio" name="transfer" onchange="georgia_transfer_data(this,1)" value="1"><span>Airport pickup and transfer</span>
+                    <div class="serviceItems-content unvisible">
+                    <div class='each-pass-info-service service-info-head'><div class="pass-info-name service-info-col"><span class="service-pass-tlt">Passenger Name</span></div><div class="pass-info-arrival service-info-col"><span class="service-pass-tlt">Arrival info</span></div><div class="pass-info-departure service-info-col"><span class="service-pass-tlt">Departure info</span></div><div class="clr"></div></div>
+                </li>
+            </ul>
+            <div class="clr"></div>
+            <input type="hidden" value="[##cms.form.providerid##]" class="providerid-value"/> 
+            <input type="hidden" value="[##cms.form.FareSourceCode##]" class="FareSourceCode-value"/> 
+        </div>
+        <div class="clr"></div>
+
+    </div>
+    <script type="text/javascript">
+        function georgia_transfer_data(element,num) {
+            if(num == 0){
+                $(".serviceItems-content").empty();
+                if(document.querySelector(".geo-parent-desc")){
+                    document.querySelector(".georgia-services").querySelector(".description").remove();
+                }
+                $(".pass-info-departure").each(function () {
+                    $(this).find(".pass-service-codes").removeClass("necessary-item")
+                })
+                $(".alertvalid").remove()
+                $(".serviceItems-content").addClass("unvisible");
+                $(".view-service-price").empty()
+                var finalprice = $(".firstpay-section").attr("data-price")
+                $(".firstpay-price").each(function () {
+                    $(this).text(finalprice);
+                    $(this).text(new Intl.NumberFormat().format($(this).text()))
+                })
+                $(".firstpay-section").attr("data-output", finalprice);
+                $(".price_firstpay").val(finalprice);
+               /*------------------START FUNCTION MULTI CURRENCY-----------------------*/
+                currency_rate()
+               /*------------------END FUNCTION MULTI CURRENCY-----------------------*/
+            } 
+            else if(num == 1){
+                $(".load-georgia-request").empty();
+                $(".text-load-georgia-request").text("");
+                $(".georgia-airport-name").val("");
+                $(".georgia-airport-code").val("");
+                $(".georgia-aircode-name").val("");
+                $(".georgia-aircode-code").val("");        
+                var finalprice = $(".firstpay-section").attr("data-price")
+                $(".view-service-price").empty()
+                $(".firstpay-price").each(function () {
+                    $(this).text(finalprice);
+                    $(this).text(new Intl.NumberFormat().format($(this).text()))
+                })
+                $(".firstpay-section").attr("data-output", finalprice);
+                $(".price_firstpay").val(finalprice);
+               /*------------------START FUNCTION MULTI CURRENCY-----------------------*/
+                currency_rate()
+               /*------------------END FUNCTION MULTI CURRENCY-----------------------*/
+                $(element).closest(".service-info-items").find(".serviceItems-content").toggleClass("unvisible");
+                var serviceItemContent = $('.serviceItems-content');
+                if (serviceItemContent && !$(serviceItemContent).hasClass('unvisible')) {
+                    var provider_id = $(".providerid-value").val();
+                    var FareSourceCode = $(".FareSourceCode-value").val();
+                    $(".load-georgia-airports").closest(".service-info-col-inner").find(".mini-loading").show();
+                    $.ajax({
+                        type: "post",
+                        url: "/Client_georgia_airports.bc",
+                        data: {
+                            provider_id: provider_id,
+                            FareSourceCode: FareSourceCode
+                        },
+                        success: function (response) {
+                            $(".load-georgia-airports").closest(".service-info-col-inner").find(".mini-loading").hide();
+                            $(".load-georgia-airports").empty().html(response);
+                        }
+                    })
+                }
+
+
+                for (var j = 0; j < document.getElementsByClassName("passengers-info-content").length; j++) {
+        for (var i = 0; i < document.getElementsByClassName("passengers-info-content")[j].getElementsByClassName("passenger").length; i++) {
+var element = "";
+var pass_fname = "";
+var pass_lname = "";
+var pass_fname_name = "";
+document.getElementsByClassName("passenger")[0].classList.add("test")
+document.getElementsByClassName("passenger")[i].classList.add("testtt")
+var firstNameInput = document.getElementsByClassName("passenger")[i].querySelector('input[name*="firstname"]');
+var lastNameInput = document.getElementsByClassName("passenger")[i].querySelector('input[name*="lastname"]');
+if (firstNameInput.value.length > 0) {
+  pass_fname = firstNameInput.value;
+  pass_fname_name = firstNameInput.getAttribute('name').replace('firstname', '');
+}
+if (lastNameInput.value.length > 0) {
+  pass_lname = lastNameInput.value;
+}
+element = element +
+`<div class='each-pass-info-service'>
+  <div class='pass-info-fullname service-info-col'><span>` + pass_fname + pass_lname + `</span></div>
+  <div class='pass-info-arrival service-info-col' data-label="Arrival info">
+      <div class='service-info-col-inner'>
+          <div class='service-info-label'>from:</div>
+          <div class="text-load-georgia-request georgia-airport" onclick="show_georgia_airports(this)" data-type="arrival"></div>
+          <span class="mini-loading p-absolute unvisible"><i class="fas fa-spinner fa-spin"></i></span>
+          <input type="hidden" name="georgia-airport-name" value="" class="georgia-airport-name"/>
+          <input type="hidden" name="` + pass_fname_name + `transfer.airport_arrival" value="" class="georgia-airport-code pass-service-codes pass-service-hasname"/>
+          <input type="hidden" name="` + pass_fname_name + `transfer.type_transfer" value="group" class="pass-service-codes"/>
+          <div class="load-georgia-request load-georgia-airports"></div>
+      </div>
+      <div class='service-info-col-inner'>
+          <div class='service-info-label'>to:</div>
+          <div class='service-info-hname'>[##cms.form.hotel_name##]</div>
+      </div>
+      <div class='service-info-col-inner'>
+          <div class='service-info-label'>flight number:</div>
+          <div class="text-load-georgia-request georgia-aircode" onclick="show_georgia_aircode(this)"></div>
+          <span class="mini-loading p-absolute unvisible"><i class="fas fa-spinner fa-spin"></i></span>
+          <input type="hidden" name="georgia-aircode-name" value="" class="georgia-aircode-name"/>
+          <input type="hidden" name="` + pass_fname_name + `transfer.arrival_flight_number" value="" class="georgia-aircode-code pass-service-codes pass-service-hasname"/>
+          <div class="load-georgia-request load-georgia-flightnum"></div>
+      </div>
+  </div>
+  <div class='pass-info-departure service-info-col' data-label="Departure info">
+      <div class='service-info-col-inner'>
+          <div class='service-info-label'>from:</div>
+          <div class='service-info-hname'>[##cms.form.hotel_name##]</div>
+      </div>
+      <div class='service-info-col-inner'>
+          <div class='service-info-label'>to:</div>
+          <div class="text-load-georgia-request georgia-airport" onclick="show_georgia_airports(this)" data-type="departure"></div>
+          <span class="mini-loading p-absolute unvisible"><i class="fas fa-spinner fa-spin"></i></span>
+          <input type="hidden" name="georgia-airport-name" value="" class="georgia-airport-name"/>
+          <input type="hidden" name="` + pass_fname_name + `transfer.airport_departure" value="" class="georgia-airport-code pass-service-codes pass-service-hasname"/>
+          <div class="load-georgia-request load-georgia-airports"></div>
+      </div>
+      <div class='service-info-col-inner'>
+          <div class='service-info-label'>flight number:</div>
+          <div class="text-load-georgia-request georgia-aircode" onclick="show_georgia_aircode(this)"></div>
+          <span class="mini-loading p-absolute unvisible"><i class="fas fa-spinner fa-spin"></i></span>
+          <input type="hidden" name="georgia-aircode-name" value="" class="georgia-aircode-name"/>
+          <input type="hidden" name="` + pass_fname_name + `transfer.departure_flight_number" value="" class="georgia-aircode-code pass-service-codes pass-service-hasname"/>
+          <div class="load-georgia-request load-georgia-flightnum"></div>
+      </div>
+  </div>
+<div class='clr'></div></div>`;
+var serviceItemsContent = document.querySelector(".serviceItems-content");
+serviceItemsContent.insertAdjacentHTML('beforeend', element);
+};
+    }
+
+        }
+    }
+
+    
+        function load_aircode(element,code,type,Departure_exist_key,Arrival_exist_key){
+            var departure_routeCode = "";
+            var return_routeCode = "";
+            if (document.querySelector(".main-container").getAttribute("data-schemaid") == 290251) {
+                var departure_route_len = document.querySelector(".departureRoutesInfo").getElementsByClassName("details-item").length;
+                departure_routeCode = document.querySelector(".departureRoutesInfo").getElementsByClassName("details-item")[parseInt(departure_route_len - 1)].querySelector(".RouteCode").innerText;
+                return_routeCode = document.querySelector(".returninfoRoutesInfo").getElementsByClassName("details-item")[0].querySelector(".RouteCode").innerText;
+            }
+            $(".next-btn").prop("disabled", true);
+                var provider_id = $(".providerid-value").val();
+                var FareSourceCode = $(".FareSourceCode-value").val();
+                $(element).closest(".service-info-col").find(".load-georgia-flightnum").closest(".service-info-col-inner").find(".mini-loading").show();
+                $(".service-info-col").removeClass("selected_parent_section")
+                var parent_section = $(element).closest(".service-info-col").addClass("selected_parent_section")
+                $.ajax({
+                type: "post",
+                url: "/client_georgia_airportcode_ver.2.bc",
+                data: {
+                    departure_routeCode: departure_routeCode,
+                    return_routeCode: return_routeCode,
+                    provider_id: provider_id,
+                    FareSourceCode: FareSourceCode,
+                    airport_code: code,
+                    airportcode_type: type,
+                    departure_key: Departure_exist_key,
+                    arrival_key: Arrival_exist_key
+            },
+            success: function (response) {
+                $(element).closest(".service-info-col").find(".load-georgia-flightnum").closest(".service-info-col-inner").find(".mini-loading").hide();
+                $(element).closest(".service-info-col").find(".load-georgia-flightnum").empty().html(response);
+                $(".next-btn").prop("disabled", false);
+            }
+            })
+        }
+        function show_georgia_airports(e) {
+            $(e).closest(".service-info-col-inner").find(".select-georgia-airport ul").slideDown();
+            $(".select-georgia-aircode ul").slideUp();
+            if ($(".select-georgia-aircode ul").is(":visible")) {
+                $(this).slideUp();
+            } 
+        }
+    
+        function show_georgia_aircode(e) {
+            $(e).closest(".service-info-col-inner").find(".select-georgia-aircode ul").slideDown();
+            if ($(".select-georgia-aircode ul").is(":visible")) {
+                $(this).slideUp();
+            } 
+        }
+        $(document).on('click', function (event) {
+         if (!$(event.target).closest('.text-load-georgia-request, .select-georgia-airport, .select-georgia-airport ul li').length) {
+           $(".select-georgia-airport ul").slideUp();
+         }
+        })
+        $(document).on('click', function (event) {
+         if (!$(event.target).closest('.text-load-georgia-request, .select-georgia-aircode, .select-georgia-aircode ul li').length) {
+           $(".select-georgia-aircode ul").slideUp();
+          }
+        })
+
+
+</script>
+</basis>

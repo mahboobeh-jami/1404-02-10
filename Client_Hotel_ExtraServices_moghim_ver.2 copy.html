@@ -1,0 +1,152 @@
+<basis core="group" name="moghim-hotel-services" if="'[##cms.form.extra_service##]'='true'">
+    <basis core="group" name="moghim-hotel-services-persian" if="'[##cms.form.lid##]'='1'">
+        <div class="hotel_services_box_inner moghim-services">
+            <div class="transfer-info-container reserve_box_title inner_box">
+                <div class="reserve-tltour"><span>ترنسفر</span></div>
+                <div class="moghim-tranfers">
+                    <p>جهت خدمات ترنسفر ، لطفا شماره و زمان پرواز را وارد نمایید.</p>
+                    <div>
+                        <div class="moghin-transfer-field">
+                            <label>شماره پرواز:</label>
+                            <div class="transfer_to transfer_to_flightnumber"><input
+                                    onkeydown="moghim_flightnumber_key(event,this)"
+                                    oninput="moghim_flightnumber_validate(this)" type="text" value=""
+                                    class="transfer_to_flightnumber" name="_root.transfer.transfer_to.flightnumber"
+                                    maxlength="5" placeholder="پرواز رفت" /></div>
+                            <div class="transfer_from transfer_from_flightnumber"><input
+                                    onkeydown="moghim_flightnumber_key(event,this)"
+                                    oninput="moghim_flightnumber_validate(this)" type="text" value=""
+                                    class="transfer_from_flightnumber" name="_root.transfer.transfer_from.flightnumber"
+                                    maxlength="5" placeholder="پرواز برگشت" /></div>
+                        </div>
+                        <div class="moghin-transfer-field">
+                            <label>ساعت پرواز:</label>
+                            <div class="transfer_to transfer_to_flighttime"><input type="text" value=""
+                                    class="transfer_to_flighttime clockpicker"
+                                    name="_root.transfer.transfer_to.flighttime" readonly placeholder="ساعت رفت" />
+                            </div>
+                            <div class="transfer_from transfer_from_flighttime"><input type="text" value=""
+                                    class="transfer_from_flighttime clockpicker"
+                                    name="_root.transfer.transfer_from.flighttime" readonly placeholder="ساعت برگشت" />
+                            </div>
+                        </div>
+                        <div class="clr"></div>
+                    </div>
+                    <input type="hidden" value="[##cms.form.transfer_to##]" class="transfer_to-value" />
+                    <input type="hidden" value="[##cms.form.transfer_from##]" class="transfer_from-value" />
+                </div>
+            </div>
+            <div class="clr"></div>
+        </div>
+    </basis>
+    <basis core="group" name="moghim-hotel-services-english" if="'[##cms.form.lid##]'='2'">
+        <div class="hotel_services_box_inner moghim-services">
+            <div class="transfer-info-container reserve_box_title inner_box">
+                <div class="reserve-tltour"><span>Transfer</span></div>
+                <div class="moghim-tranfers">
+                    <p>For transfer services, please enter the flight number and time.</p>
+                    <div>
+                        <div class="moghin-transfer-field">
+                            <label>Flight number:</label>
+                            <div class="transfer_to transfer_to_flightnumber"><input
+                                    onkeydown="moghim_flightnumber_key(event,this)"
+                                    oninput="moghim_flightnumber_validate(this)" type="text" value=""
+                                    class="transfer_to_flightnumber" name="_root.transfer.transfer_to.flightnumber"
+                                    maxlength="5" placeholder="departure flight" /></div>
+                            <div class="transfer_from transfer_from_flightnumber"><input
+                                    onkeydown="moghim_flightnumber_key(event,this)"
+                                    oninput="moghim_flightnumber_validate(this)" type="text" value=""
+                                    class="transfer_from_flightnumber" name="_root.transfer.transfer_from.flightnumber"
+                                    maxlength="5" placeholder="return flight" /></div>
+                        </div>
+                        <div class="moghin-transfer-field">
+                            <label>Flight time:</label>
+                            <div class="transfer_to transfer_to_flighttime"><input type="text" value=""
+                                    class="transfer_to_flighttime clockpicker"
+                                    name="_root.transfer.transfer_to.flighttime" readonly
+                                    placeholder="departure time" /></div>
+                            <div class="transfer_from transfer_from_flighttime"><input type="text" value=""
+                                    class="transfer_from_flighttime clockpicker"
+                                    name="_root.transfer.transfer_from.flighttime" readonly placeholder="return time" />
+                            </div>
+                        </div>
+                        <div class="clr"></div>
+                    </div>
+                    <input type="hidden" value="[##cms.form.transfer_to##]" class="transfer_to-value" />
+                    <input type="hidden" value="[##cms.form.transfer_from##]" class="transfer_from-value" />
+                </div>
+            </div>
+            <div class="clr"></div>
+        </div>
+    </basis>
+    <basis core="group" name="moghim-hotel-services-arabic" if="'[##cms.form.lid##]'='3'">
+        <div class="hotel_services_box_inner moghim-services">
+            <div class="transfer-info-container reserve_box_title inner_box">
+                <div class="reserve-tltour"><span>تحويل</span></div>
+                <div class="moghim-tranfers">
+                    <p>لخدمات النقل، يرجى إدخال رقم الرحلة والوقت.</p>
+                    <div>
+                        <div class="moghin-transfer-field">
+                            <label>رقم الرحلة:</label>
+                            <div class="transfer_to transfer_to_flightnumber"><input
+                                    onkeydown="moghim_flightnumber_key(event,this)"
+                                    oninput="moghim_flightnumber_validate(this)" type="text" value=""
+                                    class="transfer_to_flightnumber" name="_root.transfer.transfer_to.flightnumber"
+                                    maxlength="5" placeholder="رحلة المغادرة" /></div>
+                            <div class="transfer_from transfer_from_flightnumber"><input
+                                    onkeydown="moghim_flightnumber_key(event,this)"
+                                    oninput="moghim_flightnumber_validate(this)" type="text" value=""
+                                    class="transfer_from_flightnumber" name="_root.transfer.transfer_from.flightnumber"
+                                    maxlength="5" placeholder="رحلة العودة" /></div>
+                        </div>
+                        <div class="moghin-transfer-field">
+                            <label>وقت الرحلة:</label>
+                            <div class="transfer_to transfer_to_flighttime"><input type="text" value=""
+                                    class="transfer_to_flighttime clockpicker"
+                                    name="_root.transfer.transfer_to.flighttime" readonly placeholder="وقت المغادرة" />
+                            </div>
+                            <div class="transfer_from transfer_from_flighttime"><input type="text" value=""
+                                    class="transfer_from_flighttime clockpicker"
+                                    name="_root.transfer.transfer_from.flighttime" readonly placeholder="وقت العودة" />
+                            </div>
+                        </div>
+                        <div class="clr"></div>
+                    </div>
+                    <input type="hidden" value="[##cms.form.transfer_to##]" class="transfer_to-value" />
+                    <input type="hidden" value="[##cms.form.transfer_from##]" class="transfer_from-value" />
+                </div>
+            </div>
+            <div class="clr"></div>
+        </div>
+    </basis>
+    <script type="text/javascript">
+        var transfer_to = document.querySelector(".transfer_to-value").value;
+        var transfer_from = document.querySelector(".transfer_from-value").value;
+        if (transfer_to !== 'true') {
+            document.querySelector(".moghim-tranfers").querySelectorAll(".transfer_to").forEach(e => {
+                e.classList.add("unvisible");
+            })
+        }
+        if (transfer_from !== 'true') {
+            document.querySelector(".moghim-tranfers").querySelectorAll(".transfer_from").forEach(e => {
+                e.classList.add("unvisible");
+            })
+        }
+        function moghim_flightnumber_key(event, element) {
+            var regex = new RegExp("^[a-zA-Z0-9]+$");
+            var key = event.key;
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+            }
+        }
+        function moghim_flightnumber_validate(element) {
+            var regex = /^[a-zA-Z0-9]*$/;
+            if (!regex.test(element.value)) {
+                element.value = element.value.replace(/[^a-zA-Z0-9]/g, '');
+            }
+        }
+    </script>
+    <script
+        type="text/javascript">$('.clockpicker').clockpicker({ placement: 'bottom', align: 'left', autoclose: true, 'default': 'now' });</script>
+</basis>

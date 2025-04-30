@@ -1,0 +1,144 @@
+<basis core="external.fly.ws" source="cmsDbService5" procedurename="dbsource" name="db">
+    <member name="extra_service" method="flight" query='{
+            " name": "db",
+            "mid": "20",
+            "member": [
+                {
+                    "request": "extra_service",
+                    "trackingNo": "[##cms.cookie.trackingid##]",
+                    "dmnid": "[##cms.cms.domainid##]",
+                    "params": [##cms.form.extra_service##],
+                    "schemaid": [##cms.form.schemaid##]
+                }
+            ]
+        }'  />
+</basis>
+<basis core="group" name="Delay">
+    <basis core="inlinesource" name="db">
+        <member name="extra_service_tree" format="json"
+            postsql="select  Id , ParentId , case when trim(Field) is null  then  (select field from [db.extra_service_tree] where id = a.parentid ) else field end as field, value , type , path  from [db.extra_service_tree] as a"
+            >{"root":[##db.extra_service.result##]}</member>
+    </basis>
+    <basis core="tree" datamembername="db.extra_service_tree" idcol="id" parentidcol="parentid" nullvalue="null">
+        <layout> <input type="hidden" value='' class="extra_service_id_value_final" name="" /> @child </layout>
+        <face filter="field='root' and value in ('[]')">در حال حاضر خدمات باری تعریف نشده است</face>
+        <face filter="field='extra_service_departure' and type in ('array')">
+            <div class="extra_service_content" onclick="show_extra_service(this)"> <span
+                    class='extra_service_text'>خدمات بار رفت را انتخاب کنید</span> <input type='hidden' value='-'
+                    class='extra_service_text_output departure' />
+                <ul>
+                    <li onclick="select_extra_service(this)" class="extra_service_default active-service"><input
+                            type="hidden" value="0" class="extra_service_cost_value" data-selected="0" /> <input
+                            type="hidden" value='' class="extra_service_id_value" data-selected="0" /> <span
+                            class="extra_service_description">هیچکدام</span> </li> @child
+                </ul>
+            </div>
+        </face>
+        <face filter="field='extra_service_return' and type in ('array')">
+            <div class="extra_service_content" onclick="show_extra_service(this)"> <span
+                    class='extra_service_text'>خدمات بار برگشت را انتخاب کنید</span> <input type='hidden' value='-'
+                    class='extra_service_text_output return' />
+                <ul>
+                    <li onclick="select_extra_service(this)" class="extra_service_default active-service"><input
+                            type="hidden" value="0" class="extra_service_cost_value" data-selected="0" /> <input
+                            type="hidden" value='' class="extra_service_id_value" data-selected="0" /> <span
+                            class="extra_service_description">هیچکدام</span> </li> @child
+                </ul>
+            </div>
+        </face>
+        <face filter="field='extra_service_departure' and type in ('object')">
+            <li onclick="select_extra_service(this)"> @child</li>
+        </face>
+        <face filter="field='extra_service_return' and type in ('object')">
+            <li onclick="select_extra_service(this)"> @child</li>
+        </face>
+        <face filter="field='behavior'">
+            <span>@value</span> 
+        </face>
+        <face filter="field='description'"> <span class="extra_service_description">@value</span> </face>
+        <face filter="field='price'">
+            <span>@child</span>
+        </face>
+        <face filter="field='cost'"> <input type="hidden" value="@value" class="extra_service_cost_value"
+                data-selected="0" /> <span class="extra_service_cost">@value</span> </face>
+        <face filter="field='unit' and path not in ('.root[0].unit')"> <span class="moneytype">@value</span> </face>
+        <face filter="field='serviceid'"> <input type="hidden" value='@value' class="extra_service_id_value"
+                data-selected="0" />
+        </face>
+        <face filter="type in ('object','array')">@child</face>
+    </basis>
+    <script type="text/javascript">
+        function select_extra_service(element) {
+    $(element).addClass('active-service');
+    $(element).siblings().removeClass('active-service');
+    $(element).closest(".extra_service_content").find(".extra_service_text").text($(element).find(
+        ".extra_service_description").text());
+    $(element).closest(".extra_service_content").find(".extra_service_text").text() == 'هیچکدام ' ?
+        $(element).closest(".passenger-info-content").find(".extra_service_text_output").val('-') :
+        $(element).closest(".passenger-info-content").find(".extra_service_text_output").val($(element).find(
+            ".extra_service_description").text());
+    $(".selectd_extra_service_cost").val($(element).find(".extra_service_cost_value").val());
+    $(element).find(".extra_service_cost_value").attr('data-selected', 1);
+    $(element).siblings().find(".extra_service_cost_value").attr('data-selected', 0);
+    $(element).find(".extra_service_id_value").attr('data-selected', 1);
+    $(element).siblings().find(".extra_service_id_value").attr('data-selected', 0);
+    sum_extra_service = 0;
+    $(".passengers-info-content").find(".passenger-info-content").each(function () {
+        var extra_service_name =
+            $(this).find(".passenger-type").attr('name');
+        extra_service_name =
+            extra_service_name.replace('type', 'extra_service');
+        $(this).find(".extra_service_cost_value").each(function () {
+            if ($(this).attr("data-selected") == 1) {
+                sum_extra_service += parseFloat($(this).val());
+            };
+        });
+        var id_extra_service = '';
+        $(this).find(".extra_service_id_value").each(function () {
+            if ($(this).attr("data-selected") == 1) {
+                id_extra_service += $(this).val() + ',';
+            };
+        });
+        id_extra_service = id_extra_service.slice(0, -1);
+        if (id_extra_service == ',') {
+            $(this).closest(".passenger-info-content").find(".extra_service_id_value_final").val('');
+            $(this).closest(".passenger-info-content").find(".extra_service_id_value_final").attr("name", '');
+        } else {
+            $(this).closest(".passenger-info-content").find(".extra_service_id_value_final").val(
+                id_extra_service);
+            $(this).closest(".passenger-info-content").find(".extra_service_id_value_final").attr("name",
+                extra_service_name);
+        };
+    });
+
+    check_extra_service_price(sum_extra_service);
+
+};
+function check_extra_service_price(element) {
+    document.querySelector(".firstpay-price").innerText = new Intl.NumberFormat().format(parseFloat(document.querySelector(".firstpay-section").getAttribute("data-output")) + parseFloat(element));
+    if (document.querySelector(".commission-section").getAttribute("data-output") != 0) {
+        document.querySelector(".total-price").innerText = new Intl.NumberFormat().format(parseFloat(document.querySelector(".total-section").getAttribute("data-output")) + parseFloat(element));
+    };
+    if (document.querySelector(".firstpay-section").getAttribute("data-output") !== document.querySelector(".totalcom-section").getAttribute("data-output")) {
+        document.querySelector(".totalcom-price").innerText = new Intl.NumberFormat().format(parseFloat(document.querySelector(".totalcom-section").getAttribute("data-output")) + parseFloat(element));
+    };
+    currency_rate()
+};
+for (var i = 0; i < document.getElementsByClassName('extra_service_cost').length; i++) {
+    if (!document.getElementsByClassName('extra_service_cost')[i].innerHTML.includes(',')) {
+        document.getElementsByClassName('extra_service_cost')[i].innerHTML = new Intl.NumberFormat().format(document.getElementsByClassName('extra_service_cost')[i].innerHTML);
+    }
+};
+
+function show_extra_service(element) {
+    element.closest(".extra_service_content").querySelector("ul").classList.toggle("drop-toggle");
+};
+$(document).on('click', function (event) {
+    if (!$(event.target).closest('.extra_service_content').length) {
+        $(".extra_service_content ul").removeClass("drop-toggle");
+
+    }
+});
+
+    </script>
+</basis>
