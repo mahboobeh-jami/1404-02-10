@@ -1,5 +1,5 @@
 <basis core="group" name="Delay_1">
-  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
   <style>
     #form-transfer-container .transfer-select-toggle {
@@ -48,11 +48,11 @@
 
   <basis core="tree" datamembername="db.transformformTree" idcol="id" parentidcol="parentid" nullvalue="null">
     <face filter="field in ('root') and type in ('array')">
-      <div class="transfer-form-values" data-output='@value' data-transfer-type="1"></div>
+      <!-- <div class="transfer-form-values" data-output='@value' data-transfer-type="1"></div> -->
     </face>
     <face filter="type in ('object','array')">@child </face>
   </basis>
-
+  
   <div class="box-content">
     <div class="transfer-select-toggle my-5">
       <label>
@@ -60,14 +60,16 @@
         مایل به استفاده از ترنسفر هستم
       </label>
     </div>
-
+    
+    <div class="transfer-form-values" data-output="[{ &quot;transfer_to&quot; : [{ &quot;question&quot; : &quot;زمان&quot;, &quot;type&quot; : &quot;128&quot;, &quot;optional&quot; : 0.0, &quot;attrs&quot; : [{ &quot;attr&quot; : { &quot;name&quot; : &quot;class&quot;, &quot;value&quot; : &quot;necessary english&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;id&quot;, &quot;value&quot; : &quot;input1&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;type&quot;, &quot;value&quot; : &quot;text&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;placeholder&quot;, &quot;value&quot; : &quot;زمان&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;name&quot;, &quot;value&quot; : &quot;time&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;autocomplete&quot;, &quot;value&quot; : &quot;off&quot; } }], &quot;id&quot; : 1000.0 }, { &quot;question&quot; : &quot;تاریخ&quot;, &quot;type&quot; : &quot;128&quot;, &quot;optional&quot; : 0.0, &quot;attrs&quot; : [{ &quot;attr&quot; : { &quot;name&quot; : &quot;class&quot;, &quot;value&quot; : &quot;necessary english&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;id&quot;, &quot;value&quot; : &quot;input1&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;type&quot;, &quot;value&quot; : &quot;text&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;placeholder&quot;, &quot;value&quot; : &quot;تاریخ&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;name&quot;, &quot;value&quot; : &quot;date&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;autocomplete&quot;, &quot;value&quot; : &quot;off&quot; } }], &quot;id&quot; : 1000.0 }, { &quot;question&quot; : &quot;travel_company&quot;, &quot;type&quot; : &quot;128&quot;, &quot;optional&quot; : 0.0, &quot;attrs&quot; : [{ &quot;attr&quot; : { &quot;name&quot; : &quot;class&quot;, &quot;value&quot; : &quot;necessary english&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;id&quot;, &quot;value&quot; : &quot;input1&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;type&quot;, &quot;value&quot; : &quot;text&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;placeholder&quot;, &quot;value&quot; : &quot;travel_company&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;name&quot;, &quot;value&quot; : &quot;travel_company&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;autocomplete&quot;, &quot;value&quot; : &quot;off&quot; } }], &quot;id&quot; : 1000.0 }, { &quot;question&quot; : &quot;شماره سفر&quot;, &quot;type&quot; : &quot;128&quot;, &quot;optional&quot; : 0.0, &quot;attrs&quot; : [{ &quot;attr&quot; : { &quot;name&quot; : &quot;class&quot;, &quot;value&quot; : &quot;necessary english&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;id&quot;, &quot;value&quot; : &quot;input1&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;type&quot;, &quot;value&quot; : &quot;text&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;placeholder&quot;, &quot;value&quot; : &quot;شماره سفر&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;name&quot;, &quot;value&quot; : &quot;travel_number&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;autocomplete&quot;, &quot;value&quot; : &quot;off&quot; } }], &quot;id&quot; : 1000.0 }, { &quot;question&quot; : &quot;نوع سفر&quot;, &quot;type&quot; : &quot;140&quot;, &quot;optional&quot; : 0.0, &quot;attrs&quot; : [{ &quot;attr&quot; : { &quot;name&quot; : &quot;class&quot;, &quot;value&quot; : &quot;travel_type&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;id&quot;, &quot;value&quot; : &quot;select2&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;name&quot;, &quot;value&quot; : &quot;travel_type&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;autocomplete&quot;, &quot;value&quot; : &quot;off&quot; } }], &quot;values&quot; : [{ &quot;value&quot; : { &quot;title&quot; : &quot;airplane&quot;, &quot;value&quot; : &quot;0&quot; } }, { &quot;value&quot; : { &quot;title&quot; : &quot;train&quot;, &quot;value&quot; : &quot;1&quot; } }], &quot;id&quot; : 8000.0 }, { &quot;question&quot; : &quot;description&quot;, &quot;type&quot; : &quot;128&quot;, &quot;optional&quot; : 0.0, &quot;attrs&quot; : [{ &quot;attr&quot; : { &quot;name&quot; : &quot;class&quot;, &quot;value&quot; : &quot;necessary english&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;id&quot;, &quot;value&quot; : &quot;input1&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;type&quot;, &quot;value&quot; : &quot;text&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;placeholder&quot;, &quot;value&quot; : &quot;description&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;name&quot;, &quot;value&quot; : &quot;description&quot; } }, { &quot;attr&quot; : { &quot;name&quot; : &quot;autocomplete&quot;, &quot;value&quot; : &quot;off&quot; } }], &quot;id&quot; : 1000.0 }] }]" data-transfer-type="1">
+    </div>
     <div id="form-transfer-container"></div>
 
 
     <div class="clr"></div>
   </div>
 
-  <!-- <script src="https://cdn.jsdelivr.net/npm/flatpickr" defer></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
   <script>
     const transferContainer = document.querySelector(".transfer-form-values");

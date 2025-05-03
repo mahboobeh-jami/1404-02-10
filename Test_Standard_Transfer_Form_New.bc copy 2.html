@@ -1,0 +1,150 @@
+<basis core="group" name="Delay_1">
+    <basis core="external.fly.ws" source="cmsDbService5" procedurename="dbsource" name="db">
+        <member name="transferForm" method="hotel" query='{
+            "name": "db",
+            "mid": "20",
+            "member": [{
+            "type": "list",
+            "name": "q",
+            "lid":"1",
+            "request": "transfer_form",
+            "schemaid": "251",
+            "dmnid": "[##cms.cms.domainid##]",
+            "ws": "[##cms.form.providerid##]",
+            "rooms":[##cms.form.rooms##],
+            "trackingNo": "[##cms.cookie.trackingid##]",
+            "hotelid": "[##cms.form.hotelid##]"
+    }]}'  />
+    </basis>
+    <basis core="inlinesource" name="db">
+        <member name="transformformTree" format="json" postsql="select  Id , ParentId , case when trim(Field) is null  then  (select field from [db.transformformTree] where id = a.parentid ) else field end as field, value , type , path  from [db.transformformTree] as a">{"root":[##db.transferForm.result##]}</member>
+    </basis>  
+
+    <basis core="tree" datamembername="db.transformformTree" idcol="id" parentidcol="parentid" nullvalue="null">
+      <face filter="field in ('root') and type in ('array')">
+          <div class="transfer-form-values" data-output='@value'></div>
+      </face>
+      <face filter="type in ('object','array')">@child </face>
+      </basis>
+
+      <div class="transfer-toggle unvisible">
+        <label>
+          <input type="checkbox" id="wantsTransferCheckbox" />
+          مایل به استفاده از ترنسفر هستم
+        </label>
+      </div>
+
+    <div id="form-transfer-container"></div>
+
+
+<!-- اطمینان از لود بودن فایل‌های flatpickr -->
+<script>
+  const jsonData = JSON.parse(document.querySelector(".transfer-form-values").getAttribute("data-output"));
+  const container = document.getElementById("form-transfer-container");
+
+  jsonData.forEach((section, index) => {
+    const key = Object.keys(section)[0];
+    const fields = section[key];
+
+    const titleWrapper = document.createElement("div");
+    titleWrapper.className = "title font_14 font-weight room-title";
+    const titleText = document.createElement("span");
+    titleText.textContent =
+      key === "transfer_from" ? "ترنسفر ورودی" :
+      key === "transfer_to" ? "ترنسفر خروجی" : `بخش ${index + 1}`;
+    titleWrapper.appendChild(titleText);
+    container.appendChild(titleWrapper);
+
+    for (let i = 0; i < fields.length; i += 2) {
+      const row = document.createElement("div");
+      row.className = "form-row";
+
+      for (let j = 0; j < 2; j++) {
+        const field = fields[i + j];
+        if (!field) break;
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "package-info-item";
+
+        const label = document.createElement("label");
+        label.textContent = field.question;
+        label.setAttribute("data-label", field.attrs.find(a => a.attr.name === "placeholder")?.attr.value || field.question);
+
+        const inner = document.createElement("div");
+        inner.className = "inner-item";
+
+        let element;
+
+        const nameAttr = field.attrs.find(a => a.attr.name === "name");
+        const nameValue = nameAttr?.attr.value || "";
+
+        const isDate = nameValue.toLowerCase().includes("date");
+        const isTime = field.attrs.some(a => a.attr.name === "type" && a.attr.value === "time");
+
+        if (field.values && Array.isArray(field.values)) {
+          element = document.createElement("select");
+          field.values.forEach(opt => {
+            const option = document.createElement("option");
+            const valueObj = opt.value || opt; // پشتیبانی از هر دو ساختار
+            option.value = valueObj.value;
+            option.textContent = valueObj.title || valueObj.label || valueObj.value;
+            element.appendChild(option);
+          });
+        } else {
+          element = document.createElement("input");
+          element.setAttribute("type", "text"); // به صورت پیش‌فرض
+
+          // کلاس مخصوص flatpickr
+          if (isTime) {
+            element.classList.add("flatpickr-time");
+          } else if (isDate) {
+            element.classList.add("flatpickr-date");
+          }
+        }
+
+        // اعمال سایر attributes
+        field.attrs.forEach(attrObj => {
+          const { name, value } = attrObj.attr;
+          if (name === "name") {
+            element.setAttribute("name", `_root.${key}.${value}`);
+          } else if (name === "class") {
+            element.classList.add(...value.split(" "));
+          } else {
+            element.setAttribute(name, value);
+          }
+        });
+
+        if (field.optional === 0.0) {
+          element.setAttribute("required", "required");
+        }
+
+        inner.appendChild(element);
+        wrapper.appendChild(label);
+        wrapper.appendChild(inner);
+        row.appendChild(wrapper);
+      }
+
+      container.appendChild(row);
+    }
+  });
+
+  // فعال‌سازی flatpickr
+  flatpickr(".flatpickr-time", {
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "H:i",
+    time_24hr: true
+  });
+
+  flatpickr(".flatpickr-date", {
+    enableTime: false,
+    dateFormat: "Y-m-d"
+  });
+</script>
+
+
+    
+
+</basis>
+
+

@@ -7401,45 +7401,6 @@ ${e.dataset.id ? `"id":${e.dataset.id},` : ``}
 
                                 // added jami
                                 const transferTypeElement = document.querySelector(".hotel_transfer_type");
-
-                                // if (transferTypeElement && transferTypeElement.value === "1") {
-                                //     // provider 70 ,...
-                                
-                                //     const hotelIdInput = document.querySelector(".hotelid_transfer_type");
-                                //     const hotelRoomsInput = document.querySelector('.invoice-form input[name="rooms"]');
-                                //     const hotelid = hotelIdInput ? hotelIdInput.value : null;
-                                //     const hotelRoomsTransfer = hotelRoomsInput ? hotelRoomsInput.value : null;
-                                
-                                //     if (!hotelid) {
-                                //         console.warn("hotelid_transfer_type not found or has no value.");
-                                //     } else {
-                                //         document.querySelector(".services-info-content").classList.remove("unvisible");
-                                //         fetch('/Test_Standard_Transfer_Form_New.bc?debug=true', {
-                                //             method: 'POST',
-                                //             headers: {
-                                //                 'Content-Type': 'application/x-www-form-urlencoded',
-                                //             },
-                                //             body: `hotelid=${encodeURIComponent(hotelid)}&rooms=${encodeURIComponent(hotelRoomsTransfer)}`
-                                //         })
-                                //         .then(response => response.text())
-                                //         .then(html => {
-                                //             const container = document.querySelector(".services-info-content");
-                                //             if (container) {
-                                //                 container.innerHTML = html;
-                                //                 container.setAttribute("data-load", "1");
-                                //                 show_extra_service_content(element);
-                                //             }
-                                //         })
-                                //         .catch(error => {
-                                //             console.error("Error loading transfer info:", error);
-                                //         });
-
-
-                                //     }
-                                // }
-
-
-
                                 if (transferTypeElement && transferTypeElement.value === "1") {
                                     const hotelIdInput = document.querySelector(".hotelid_transfer_type");
                                     const providerIDHotel = document.querySelector('.invoice-form input[name="provider"]');
@@ -7480,11 +7441,12 @@ ${e.dataset.id ? `"id":${e.dataset.id},` : ``}
                                                     if (script.src) {
                                                         newScript.src = script.src;
                                                         newScript.async = false; // حفظ ترتیب اجرا
+                                                        document.body.appendChild(newScript);
                                                     } else {
                                                         newScript.textContent = script.textContent;
+                                                        document.body.appendChild(newScript);
                                                     }
                                 
-                                                    document.body.appendChild(newScript);
                                                 });
                                 
                                                 // تابع دلخواه شما بعد از لود محتوا
@@ -7529,23 +7491,6 @@ ${e.dataset.id ? `"id":${e.dataset.id},` : ``}
 
                                 }
 
-                                // if (check_provider == 70) {
-                                //     document.querySelector(".services-info-content").classList.remove("unvisible");
-                                //     var hotel_extra_service = true;
-                                //     var transfer_to = document.querySelector(".hotel_extra_service_transfer_to").value;
-                                //     var transfer_from = document.querySelector(".hotel_extra_service_transfer_from").value;
-                                //     $.post('/Client_Hotel_ExtraServices_moghim_ver.2.bc', {
-                                //         lid: 1,
-                                //         extra_service: hotel_extra_service,
-                                //         providerid: check_provider,
-                                //         transfer_to: transfer_to,
-                                //         transfer_from: transfer_from,
-                                //     }, function (response) {
-                                //         $(".services-info-content").html(response);
-                                //     });
-                                //     document.querySelector(".services-info-content").setAttribute("data-load", 1);
-                                //     show_extra_service_content(element);
-                                // }
                             } 
                             else {
                                 if (document.querySelector(".main-container").getAttribute("data-schemaid") == 290251) {
@@ -7554,13 +7499,6 @@ ${e.dataset.id ? `"id":${e.dataset.id},` : ``}
                                     show_summary_content(element);
                                 };
                             }
-
-
-
-
-
-
-
 
 
                         } else {

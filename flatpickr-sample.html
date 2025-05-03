@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>تاریخ و ساعت جدا</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+    }
+    input {
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+
+  <h3>تاریخ:</h3>
+  <input type="text" id="datePicker" placeholder="تاریخ را انتخاب کن">
+
+  <h3>ساعت:</h3>
+  <input type="text" id="timePicker" placeholder="ساعت را انتخاب کن">
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script>
+    // فقط تاریخ
+    flatpickr("#datePicker", {
+      dateFormat: "Y-m-d",
+      minDate: "today",
+      disableMobile: true
+    });
+
+    // فقط زمان
+    flatpickr("#timePicker", {
+      enableTime: true,
+      noCalendar: true,
+      dateFormat: "H:i",
+      time_24hr: true,
+      minuteIncrement: 1,
+      disableMobile: true
+    });
+  </script>
+
+</body>
+</html>
