@@ -7326,14 +7326,15 @@ ${e.dataset.id ? `"id":${e.dataset.id},` : ``}
 
                                 // added jami
                                 const transferTypeElement = document.querySelector(".hotel_transfer_type");
-                                
                                 if (transferTypeElement && transferTypeElement.value === "1") {
+                                    const transferTypeModule = document.querySelector(".hotel_transfer_moduletype");
                                     const hotelIdInput = document.querySelector(".hotelid_transfer_type");
                                     const providerIDHotel = document.querySelector('.invoice-form input[name="provider"]');
                                     const hotelRoomsInput = document.querySelector('.invoice-form input[name="rooms"]');
                                     const hotelid = hotelIdInput ? hotelIdInput.value : null;
                                     const hotelRoomsTransfer = hotelRoomsInput ? hotelRoomsInput.value : null;
                                     const providerIDHotelData = providerIDHotel ? providerIDHotel.value : null;
+                                    const transferTypeModuleData = transferTypeModule ? transferTypeModule.value : null;
                                 
                                     if (!hotelid) {
                                         console.warn("hotelid_transfer_type not found or has no value.");
@@ -7345,18 +7346,16 @@ ${e.dataset.id ? `"id":${e.dataset.id},` : ``}
                                             headers: {
                                                 'Content-Type': 'application/x-www-form-urlencoded',
                                             },
-                                            body: `hotelid=${encodeURIComponent(hotelid)}&rooms=${encodeURIComponent(hotelRoomsTransfer)}&providerid=${encodeURIComponent(providerIDHotelData)}`
+                                            body: `hotelid=${encodeURIComponent(hotelid)}&rooms=${encodeURIComponent(hotelRoomsTransfer)}&providerid=${encodeURIComponent(providerIDHotelData)}&transfermoduletype=${encodeURIComponent(transferTypeModuleData)}`
                                         })
                                         .then(response => response.text())
                                         .then(html => {
                                             const container = document.querySelector(".services-info-content");
                                 
                                             if (container) {
-                                                // اول HTML رو درون container بریز
                                                 container.innerHTML = html;
                                                 container.setAttribute("data-load", "1");
                                 
-                                                // اجرای اسکریپت‌ها
                                                 const tempDiv = document.createElement("div");
                                                 tempDiv.innerHTML = html;
                                                 const scripts = tempDiv.querySelectorAll("script");
@@ -7366,7 +7365,7 @@ ${e.dataset.id ? `"id":${e.dataset.id},` : ``}
                                 
                                                     if (script.src) {
                                                         newScript.src = script.src;
-                                                        newScript.async = false; // حفظ ترتیب اجرا
+                                                        newScript.async = false; 
                                                         document.body.appendChild(newScript);
                                                     } else {
                                                         newScript.textContent = script.textContent;
@@ -7374,8 +7373,6 @@ ${e.dataset.id ? `"id":${e.dataset.id},` : ``}
                                                     }
                                 
                                                 });
-                                
-                                                // تابع دلخواه شما بعد از لود محتوا
                                                 show_extra_service_content(element);
                                             }
                                         })

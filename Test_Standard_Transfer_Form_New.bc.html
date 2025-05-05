@@ -1,24 +1,6 @@
 <basis core="group" name="Delay_1">
-  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"> -->
-
   <style>
-    #form-transfer-container .transfer-select-toggle {
-      margin-bottom: 1em !important;
-    }
-
-    #form-transfer-container .form-row {
-      float: none !important;
-      clear: both !important;
-    }
-
-    #form-transfer-container .title.font_14.font-weight.room-title {
-      float: none;
-      clear: both;
-    }
-
-    #form-transfer-container .flatpickr-time {
-      height: 40px !important;
-    }
+    #form-transfer-container .transfer-select-toggle{ margin-bottom: 1em !important;} #form-transfer-container .form-row{ float: none !important; clear: both !important;} #form-transfer-container .title.font_14.font-weight.room-title{ float: none; clear: both;} #form-transfer-container .flatpickr-time{ height: 40px !important;}
   </style>
 
 
@@ -36,7 +18,8 @@
             "ws": "[##cms.form.providerid##]",
             "rooms":[##cms.form.rooms##],
             "trackingNo": "[##cms.cookie.trackingid##]",
-            "hotelid": "[##cms.form.hotelid##]"
+            "hotelid": "[##cms.form.hotelid##]",
+            "transferModuleType" : "[##cms.form.transfermoduletype##]"
     }]}' />
   </basis>
 
@@ -66,9 +49,6 @@
 
     <div class="clr"></div>
   </div>
-
-  <!-- <script src="https://cdn.jsdelivr.net/npm/flatpickr" defer></script> -->
-
   <script>
     const transferContainer = document.querySelector(".transfer-form-values");
     const transferType = parseInt(transferContainer.getAttribute("data-transfer-type"), 10);
@@ -86,99 +66,98 @@
       }
     });
     
-    function renderTransferForm() {
-      const sections = jsonData[0];
-      Object.entries(sections).forEach(([key, fields]) => {
-        const titleWrapper = document.createElement("div");
-        titleWrapper.className = "title font_14 font-weight room-title";
-        const titleText = document.createElement("span");
-        titleText.textContent = key === "transfer_from" ? "ترنسفر خروجی" : key === "transfer_to" ? "ترنسفر ورودی" : key;
-        titleWrapper.appendChild(titleText);
-        container.appendChild(titleWrapper);
-    
-        for (let i = 0; i < fields.length; i += 2) {
-          const row = document.createElement("div");
-          row.className = "form-row";
-    
-          for (let j = 0; j < 2; j++) {
-            const field = fields[i + j];
-            if (!field) continue;
-    
-            const wrapper = document.createElement("div");
-            wrapper.className = "package-info-item";
-            const label = document.createElement("label");
-            label.textContent = field.question;
-            label.setAttribute("data-label", field.attrs.find((a) => a.attr.name === "placeholder")?.attr.value || field.question);
-            const inner = document.createElement("div");
-            inner.className = "inner-item";
-            const input = document.createElement("input");
-            input.setAttribute("type", "text");
-    
-            // برای flatpickr همیشه text
-            const isTime = field.attrs.some((a) => a.attr.name === "name" && a.attr.value === "time");
-            const isDate = field.attrs.some((a) => a.attr.name === "name" && a.attr.value === "date");
-    
-            if (isTime) input.classList.add("clockpicker");
-            if (isDate) input.classList.add("flatpickr-date");
-    
-            // اعمال attribute ها
-            field.attrs.forEach(({ attr: { name, value } }) => {
-              if (name === "class") {
-                input.classList.add(...value.split(" "));
-              } else if (name === "name") {
-                input.setAttribute("name", `_root.transfer.${key}.${value}`);
-              } else if (name !== "type") {
-                input.setAttribute(name, value);
-              }
-            });
-    
-            if (field.optional === 0.0) {
-              input.setAttribute("required", "required");
-            }
-    
-            inner.appendChild(input);
-            wrapper.appendChild(label);
-            wrapper.appendChild(inner);
-            row.appendChild(wrapper);
-          }
-          container.appendChild(row);
+
+
+function renderTransferForm() {
+  const sections = jsonData[0];
+  Object.entries(sections).forEach(([key, fields]) => {
+    const titleWrapper = document.createElement("div");
+    titleWrapper.className = "title font_14 font-weight room-title";
+    const titleText = document.createElement("span");
+    titleText.textContent = key === "transfer_from" ? "ترنسفر خروجی" : key === "transfer_to" ? "ترنسفر ورودی" : key;
+    titleWrapper.appendChild(titleText);
+    container.appendChild(titleWrapper);
+
+    const fieldsPerRow = fields.length > 2 ? 3 : 2;
+
+    for (let i = 0; i < fields.length; i += fieldsPerRow) {
+      const row = document.createElement("div");
+      row.className = "form-row";
+
+      for (let j = 0; j < fieldsPerRow; j++) {
+        const field = fields[i + j];
+        if (!field) continue;
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "package-info-item";
+        const label = document.createElement("label");
+        label.textContent = field.question;
+        label.setAttribute("data-label", field.attrs.find((a) => a.attr.name === "placeholder")?.attr.value || field.question);
+        const inner = document.createElement("div");
+        inner.className = "inner-item";
+
+        let inputElement;
+
+        if (field.values && Array.isArray(field.values)) {
+          inputElement = document.createElement("select");
+
+          field.values.forEach((optionObj) => {
+            const option = document.createElement("option");
+            option.value = optionObj.value.value;
+            option.textContent = optionObj.value.title;
+            inputElement.appendChild(option);
+          });
+        } else {
+          inputElement = document.createElement("input");
+          inputElement.setAttribute("type", "text");
+
+          const isTime = field.attrs.some((a) => a.attr.name === "name" && a.attr.value === "time");
+          const isDate = field.attrs.some((a) => a.attr.name === "name" && a.attr.value === "date");
+
+          if (isTime) inputElement.classList.add("clockpicker");
+          if (isDate) inputElement.classList.add("flatpickr-date");
         }
-      });
-    
-      // فقط تاریخ flatpickr
-        flatpickr(".flatpickr-date", {
-          dateFormat: "Y-m-d",
-          minDate: "today",
-          disableMobile: true
+
+        field.attrs.forEach(({ attr: { name, value } }) => {
+          if (name === "class") {
+            inputElement.classList.add(...value.split(" "));
+          } else if (name === "name") {
+            inputElement.setAttribute("name", `_root.transfer.${key}.${value}`);
+          } else if (name !== "type") {
+            inputElement.setAttribute(name, value);
+          }
         });
-      
 
-        $('.clockpicker').clockpicker({ placement: 'bottom', align: 'left', autoclose: true, 'default': 'now' });
+        if (field.optional === 0.0) {
+          inputElement.setAttribute("required", "required");
+        }
 
-      // فقط زمان flatpickr
-      // flatpickr(".flatpickr-time", {
-      //   enableTime: true,
-      //   noCalendar: true,
-      //   dateFormat: "H:i",
-      //   time_24hr: true,
-      //   minuteIncrement: 1,
-      //   disableMobile: true, // مهم!
-      //   allowInput: true,     // این گزینه اجازه می‌ده فیلد باز بمونه و کیبورد عمل کنه
-      //   onReady: (selectedDates, dateStr, instance) => {
-      //     instance._input.removeAttribute("readonly"); // مهم!
-      //   }
-      // });
+        inner.appendChild(inputElement);
+        wrapper.appendChild(label);
+        wrapper.appendChild(inner);
+        row.appendChild(wrapper);
+      }
 
-
+      container.appendChild(row);
     }
+  });
+
+  flatpickr(".flatpickr-date", {
+    dateFormat: "Y-m-d",
+    minDate: "today",
+    disableMobile: true
+  });
+
+  $('.clockpicker').clockpicker({
+    placement: 'bottom',
+    align: 'left',
+    autoclose: true,
+    'default': 'now'
+  });
+}
+
 
 
 
     </script>
-    
-
-
-    <!-- <script type="text/javascript">$('.clockpicker').clockpicker({ placement: 'bottom', align: 'left', autoclose: true, 'default': 'now' });</script> -->
-
-
 </basis>

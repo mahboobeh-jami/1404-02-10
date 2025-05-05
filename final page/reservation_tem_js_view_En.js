@@ -6844,12 +6844,14 @@ ${e.dataset.id ? `"id":${e.dataset.id},` : ``}
                                 const transferTypeElement = document.querySelector(".hotel_transfer_type");
                                 
                                 if (transferTypeElement && transferTypeElement.value === "1") {
+                                    const transferTypeModule = document.querySelector(".hotel_transfer_moduletype");
                                     const hotelIdInput = document.querySelector(".hotelid_transfer_type");
                                     const providerIDHotel = document.querySelector('.invoice-form input[name="provider"]');
                                     const hotelRoomsInput = document.querySelector('.invoice-form input[name="rooms"]');
                                     const hotelid = hotelIdInput ? hotelIdInput.value : null;
                                     const hotelRoomsTransfer = hotelRoomsInput ? hotelRoomsInput.value : null;
                                     const providerIDHotelData = providerIDHotel ? providerIDHotel.value : null;
+                                    const transferTypeModuleData = transferTypeModule ? transferTypeModule.value : null;
                                 
                                     if (!hotelid) {
                                         console.warn("hotelid_transfer_type not found or has no value.");
@@ -6861,7 +6863,7 @@ ${e.dataset.id ? `"id":${e.dataset.id},` : ``}
                                             headers: {
                                                 'Content-Type': 'application/x-www-form-urlencoded',
                                             },
-                                            body: `hotelid=${encodeURIComponent(hotelid)}&rooms=${encodeURIComponent(hotelRoomsTransfer)}&providerid=${encodeURIComponent(providerIDHotelData)}`
+                                            body: `hotelid=${encodeURIComponent(hotelid)}&rooms=${encodeURIComponent(hotelRoomsTransfer)}&providerid=${encodeURIComponent(providerIDHotelData)}&transfermoduletype=${encodeURIComponent(transferTypeModuleData)}`
                                         })
                                         .then(response => response.text())
                                         .then(html => {
@@ -6870,6 +6872,7 @@ ${e.dataset.id ? `"id":${e.dataset.id},` : ``}
                                             if (container) {
                                                 container.innerHTML = html;
                                                 container.setAttribute("data-load", "1");
+                                
                                                 const tempDiv = document.createElement("div");
                                                 tempDiv.innerHTML = html;
                                                 const scripts = tempDiv.querySelectorAll("script");
@@ -6879,7 +6882,7 @@ ${e.dataset.id ? `"id":${e.dataset.id},` : ``}
                                 
                                                     if (script.src) {
                                                         newScript.src = script.src;
-                                                        newScript.async = false;
+                                                        newScript.async = false; 
                                                         document.body.appendChild(newScript);
                                                     } else {
                                                         newScript.textContent = script.textContent;

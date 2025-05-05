@@ -7402,12 +7402,17 @@ ${e.dataset.id ? `"id":${e.dataset.id},` : ``}
                                 // added jami
                                 const transferTypeElement = document.querySelector(".hotel_transfer_type");
                                 if (transferTypeElement && transferTypeElement.value === "1") {
+                                    const transferTypeModule = document.querySelector(".hotel_transfer_moduletype");
                                     const hotelIdInput = document.querySelector(".hotelid_transfer_type");
                                     const providerIDHotel = document.querySelector('.invoice-form input[name="provider"]');
                                     const hotelRoomsInput = document.querySelector('.invoice-form input[name="rooms"]');
                                     const hotelid = hotelIdInput ? hotelIdInput.value : null;
                                     const hotelRoomsTransfer = hotelRoomsInput ? hotelRoomsInput.value : null;
                                     const providerIDHotelData = providerIDHotel ? providerIDHotel.value : null;
+                                    const transferTypeModuleData = transferTypeModule ? transferTypeModule.value : null;
+
+
+                                    console.log(hotelIdInput , providerIDHotel , hotelRoomsInput );
                                 
                                     if (!hotelid) {
                                         console.warn("hotelid_transfer_type not found or has no value.");
@@ -7419,7 +7424,7 @@ ${e.dataset.id ? `"id":${e.dataset.id},` : ``}
                                             headers: {
                                                 'Content-Type': 'application/x-www-form-urlencoded',
                                             },
-                                            body: `hotelid=${encodeURIComponent(hotelid)}&rooms=${encodeURIComponent(hotelRoomsTransfer)}&providerid=${encodeURIComponent(providerIDHotelData)}`
+                                            body: `hotelid=${encodeURIComponent(hotelid)}&rooms=${encodeURIComponent(hotelRoomsTransfer)}&providerid=${encodeURIComponent(providerIDHotelData)}&transfermoduletype=${encodeURIComponent(transferTypeModuleData)}`
                                         })
                                         .then(response => response.text())
                                         .then(html => {
