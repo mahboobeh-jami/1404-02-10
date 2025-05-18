@@ -7320,7 +7320,7 @@ ${e.dataset.id ? `"id":${e.dataset.id},` : ``}
                                     show_service_content(element);
                                 }
 
-                            } else if (document.querySelector(".hotel_extra_service")) {
+                            } else if (document.querySelector(".hotel_transfer_type")) {
                                 //<!----------------START JS EXTRA SERVICE HOTEL---------------->
                                 var check_provider = document.querySelector(".provider").value;
 
@@ -12437,10 +12437,3 @@ function create_array_data(type) {
     }
 
 };
-
-
-
-
-
-
-

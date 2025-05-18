@@ -7395,7 +7395,7 @@ ${e.dataset.id ? `"id":${e.dataset.id},` : ``}
 
                                 // endpoint
                             } 
-                            else if (document.querySelector(".hotel_extra_service")) {
+                            else if (document.querySelector(".hotel_transfer_type")) {
                                 //<!----------------START JS EXTRA SERVICE HOTEL---------------->
                                 var check_provider = document.querySelector(".provider").value;
 
